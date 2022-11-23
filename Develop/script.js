@@ -1,12 +1,6 @@
 /*
 
 
-WHEN I scroll down
-THEN I am presented with timeblocks for standard business hours
-
-WHEN I view the timeblocks for that day
-THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-
 WHEN I click into a timeblock
 THEN I can enter an event
 
@@ -28,11 +22,24 @@ $(function () {
 
 	var now = dayjs();
 	var longDate = now.$d;
+	var hour = dayjs().hour();
 
+	console.log(hour);
 
 	var currentDay = document.getElementById('currentDay');
 	currentDay.textContent = "Today is " + longDate;
 
+	for(x = 8;x < 18; x++) 
+	{
+		var rowId = document.getElementById('hour-' + x);
+
+		if(hour < x) {var newClass = "past"};
+		if(hour == x) {var newClass = "present"}
+		else {var newClass = "future"};
+
+		rowId.classList.add(newClass);
+
+	}
 
 	// TODO: Add a listener for click events on the save button. This code should
 	// use the id in the containing time-block as a key to save the user input in
