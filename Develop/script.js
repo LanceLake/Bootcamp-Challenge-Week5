@@ -49,9 +49,9 @@ $(function () {
 
 		saveButton.addEventListener("click", function() 
 		{
-			console.log(document.getElementById('text-' + 9).value);
+//			console.log(document.getElementById('text-' + i).value);
 			console.log(i,noteData);
-			saveData(9,noteData);
+			saveData(i,noteData);
 		});
 	}
 });
