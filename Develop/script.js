@@ -18,45 +18,46 @@ https://day.js.org/docs/en/get-set/get-set
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+
+
+
+
 $(function () {
 
 	var now = dayjs();
 	var longDate = now.$d;
 	var hour = dayjs().hour();
-
-	console.log(hour);
-
+                             
 	var currentDay = document.getElementById('currentDay');
 	currentDay.textContent = "Today is " + longDate;
 
-	for(x = 8;x < 18; x++) 
+	for(i = 8;i < 18; i++) 
 	{
-		var rowId = document.getElementById('hour-' + x);
+		var rowId = document.getElementById('hour-' + i);
+		var noteId = document.getElementById('text-' + i);
+		var noteData = document.getElementById('text-' + i).value;
+		var saveButton = document.getElementById('button-' + i);
 
-		if(hour < x) {var newClass = "past"};
-		if(hour == x) {var newClass = "present"}
-		else {var newClass = "future"};
+		var newClass = "future"
+		
+		if(hour < i) {newClass = "past"};
+		if(hour == i) {newClass = "present"}
 
 		rowId.classList.add(newClass);
 
-	}
+		noteId.textContent = localStorage.getItem('data-' + i);
 
-	// TODO: Add a listener for click events on the save button. This code should
-	// use the id in the containing time-block as a key to save the user input in
-	// local storage. HINT: What does `this` reference in the click listener
-	// function? How can DOM traversal be used to get the "hour-x" id of the
-	// time-block containing the button that was clicked? How might the id be
-	// useful when saving the description in local storage?
-	//
-	// TODO: Add code to apply the past, present, or future class to each time
-	// block by comparing the id to the current hour. HINTS: How can the id
-	// attribute of each time-block be used to conditionally add or remove the
-	// past, present, and future classes? How can Day.js be used to get the
-	// current hour in 24-hour time?
-	//
-	// TODO: Add code to get any user input that was saved in localStorage and set
-	// the values of the corresponding textarea elements. HINT: How can the id
-	// attribute of each time-block be used to do this?
-	//
-	// TODO: Add code to display the current date in the header of the page.
+		saveButton.addEventListener("click", function() 
+		{
+			console.log(document.getElementById('text-' + 9).value);
+			console.log(i,noteData);
+			saveData(9,noteData);
+		});
+	}
 });
+
+function saveData(i, note)
+	{
+		localStorage.setItem('data-' + i, note);
+		return;
+	};
